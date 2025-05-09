@@ -11,6 +11,11 @@ const User = {
         return rows[0];
     },
 
+    getUserByName: async (name) => {
+        const [rows] = await db.query('SELECT * FROM users WHERE name = ?', [name]);
+        return rows[0];
+    },
+
     createUser: async (user) => {
         const [result] = await db.query('INSERT INTO users (name, email, password) VALUES (?, ?, ?)', [user.name, user.email, user.password]);
         return { id: result.insertId, ...user };
